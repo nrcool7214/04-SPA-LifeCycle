@@ -45,7 +45,7 @@ export default class SearchResults extends Component {
 
   render() {
     console.log("render Search Result Component")
-    let newFilterArray = this.state.users.filter(user=> user.name.toLowerCase().includes(this.props.searchFor) || user.email.toLowerCase().includes(this.props.searchFor) )
+    let newFilterArray = this.state.users.filter(user=> user.name.toLowerCase().includes(this.props.searchFor.toLowerCase()) || user.email.toLowerCase().includes(this.props.searchFor.toLowerCase()) )
     return (
       <table>
         <thead>
