@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import User from "./User";
 
 export default class SearchResults extends Component {
     constructor(props) {
@@ -30,7 +31,21 @@ export default class SearchResults extends Component {
 
     }
 
+    shouldComponentUpdate(nextProps,nextState){
+      console.log(nextState, ".....next state we are receiving")
+      console.log(this.state, "......old state we have")
+
+      if(nextProps.searchFor===this.props.searchFor && nextState.users===this.state.users){
+        return false
+      }else{
+        return true
+      }
+    }
+
+
   render() {
+    console.log("render Search Result Component")
+    let newFilterArray = this.state.users.filter(user=> user.name.toLowerCase().includes(this.props.searchFor) || user.email.toLowerCase().includes(this.props.searchFor) )
     return (
       <table>
         <thead>
@@ -41,31 +56,12 @@ export default class SearchResults extends Component {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>user id</td>
-            <td>user name</td>
-            <td>user email</td>
-          </tr>
-          <tr>
-            <td>user id</td>
-            <td>user name</td>
-            <td>user email</td>
-          </tr>
-          <tr>
-            <td>user id</td>
-            <td>user name</td>
-            <td>user email</td>
-          </tr>
-          <tr>
-            <td>user id</td>
-            <td>user name</td>
-            <td>user email</td>
-          </tr>
-          <tr>
-            <td>user id</td>
-            <td>user name</td>
-            <td>user email</td>
-          </tr>
+         {newFilterArray.map(filterUser=>{
+           return(
+              <User key={filterUser.id} id={filterUser.id} name={filterUser.name} email={filterUser.email} />
+           )
+         })}
+         
         </tbody>
       </table>
     );
